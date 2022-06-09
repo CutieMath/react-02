@@ -70,7 +70,7 @@ class Movies extends Component {
         {/* Pagination */}
         <Pagination
           itemsCount={count}
-          pageSize={this.state.pageSize}
+          pageSize={10}
           onPageChange={() => this.handlePageChange()}
         />
       </React.Fragment>
