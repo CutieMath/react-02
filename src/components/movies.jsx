@@ -1,12 +1,14 @@
 import { getMovies } from "../services/fakeMovieService";
 import React, { Component } from "react";
 import Like from "./common/like";
+import Pagination from "./common/pagination";
 
 // Used OOD for now
 class Movies extends Component {
   // Not standard initilisation
   state = {
     movies: getMovies(),
+    pageSize: 4,
   };
 
   handleDelete = (movie) => {
@@ -22,7 +24,12 @@ class Movies extends Component {
     this.setState({ movies });
   };
 
+  handlePageChange = (page) => {
+    console.log(page);
+  };
+
   render() {
+    // Destructuring the count
     const { length: count } = this.state.movies;
     if (count === 0) return <p>There are no movies in the database.</p>;
     return (
@@ -59,6 +66,13 @@ class Movies extends Component {
             ))}
           </tbody>
         </table>
+
+        {/* Pagination */}
+        <Pagination
+          itemsCount={count}
+          pageSize={this.state.pageSize}
+          onPageChange={() => this.handlePageChange()}
+        />
       </React.Fragment>
     );
   }
