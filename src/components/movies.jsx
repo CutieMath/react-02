@@ -66,7 +66,7 @@ class Movies extends Component {
         <Pagination
           itemsCount={moviesCount}
           pageSize={this.state.pageSize}
-          onPageClick={() => this.handlePageChange()}
+          onPageClick={this.handlePageChange}
         />
       </>
     );

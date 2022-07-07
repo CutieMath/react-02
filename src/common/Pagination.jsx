@@ -11,7 +11,13 @@ const Pagination = ({ itemsCount, pageSize, onPageClick }) => {
         <ul className="pagination">
           {pagesArray.map((pageNumber) => (
             <li key={pageNumber} className="page-item">
-              <a className="page-link">{pageNumber}</a>
+              <a
+                onClick={() => onPageClick(pageNumber)}
+                style={{ cursor: "pointer" }}
+                className="page-link"
+              >
+                {pageNumber}
+              </a>
             </li>
           ))}
         </ul>
