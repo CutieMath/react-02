@@ -1,5 +1,6 @@
 import React, { Component } from "react";
 import { getMovies } from "../services/fakeMovieService";
+import LoveHeart from "../common/LoveHeart";
 
 class Movies extends Component {
   state = {
@@ -22,7 +23,8 @@ class Movies extends Component {
               <th scope="col">Title</th>
               <th scope="col">Genre</th>
               <th scope="col">Ratings</th>
-              <th scope="col"></th>
+              <th scope="col">Likes</th>
+              <th scope="col">Edits</th>
             </tr>
           </thead>
           <tbody>
@@ -31,6 +33,9 @@ class Movies extends Component {
                 <td>{movie.title}</td>
                 <td>{movie.genre.name}</td>
                 <td>{movie.dailyRentalRate}</td>
+                <td>
+                  <LoveHeart />
+                </td>
                 <td>
                   <button
                     className="btn btn-danger btn-sm"
