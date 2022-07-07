@@ -7,6 +7,7 @@ class Movies extends Component {
   state = {
     movies: getMovies(),
     pageSize: 4,
+    currPage: 1,
   };
   handleDelete = (movie) => {
     const newMovies = this.state.movies.filter((m) => m._id !== movie._id);
@@ -19,11 +20,13 @@ class Movies extends Component {
     this.setState({ movies: newMovies });
   };
   handlePageChange = (pageClicked) => {
-    console.log(pageClicked);
+    this.setState({ currPage: pageClicked });
   };
 
   render() {
     const { length: moviesCount } = this.state.movies;
+    // destructuring the elements so the code is cleaner
+    const { pageSize, currPage } = this.state;
     if (moviesCount === 0) return <p>No movies in the database x</p>;
 
     return (
@@ -65,8 +68,9 @@ class Movies extends Component {
         </table>
         <Pagination
           itemsCount={moviesCount}
-          pageSize={this.state.pageSize}
+          pageSize={pageSize}
           onPageClick={this.handlePageChange}
+          currPage={currPage}
         />
       </>
     );
