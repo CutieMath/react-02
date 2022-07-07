@@ -3,6 +3,7 @@ import _ from "lodash";
 
 const Pagination = ({ itemsCount, pageSize, onPageClick }) => {
   const pagesCount = itemsCount / pageSize;
+  if (pagesCount <= 1) return null;
   const pagesArray = _.range(1, pagesCount + 1);
   return (
     <>
