@@ -10,6 +10,13 @@ class Movies extends Component {
     const newMovies = this.state.movies.filter((m) => m._id !== movie._id);
     this.setState({ movies: newMovies });
   };
+  handleLike = (movie) => {
+    const newMovies = [...this.state.movies];
+    const index = newMovies.indexOf(movie);
+    newMovies[index].liked = !newMovies[index].liked;
+    this.setState({ movies: newMovies });
+  };
+
   render() {
     const { length: moviesCount } = this.state.movies;
     if (moviesCount === 0) return <p>No movies in the database x</p>;
@@ -34,7 +41,10 @@ class Movies extends Component {
                 <td>{movie.genre.name}</td>
                 <td>{movie.dailyRentalRate}</td>
                 <td>
-                  <LoveHeart />
+                  <LoveHeart
+                    loved={movie.liked}
+                    onClick={() => this.handleLike(movie)}
+                  />
                 </td>
                 <td>
                   <button
