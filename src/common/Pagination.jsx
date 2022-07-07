@@ -1,21 +1,18 @@
 import React from "react";
+import _ from "lodash";
 
 const Pagination = ({ itemsCount, pageSize, onPageClick }) => {
   const pagesCount = itemsCount / pageSize;
-
+  const pagesArray = _.range(1, pagesCount + 1);
   return (
     <>
       <nav aria-label="Page navigation">
         <ul className="pagination">
-          <li className="page-item">
-            <a className="page-link">1</a>
-          </li>
-          <li className="page-item">
-            <a className="page-link">2</a>
-          </li>
-          <li className="page-item">
-            <a className="page-link">3</a>
-          </li>
+          {pagesArray.map((pageNumber) => (
+            <li key={pageNumber} className="page-item">
+              <a className="page-link">{pageNumber}</a>
+            </li>
+          ))}
         </ul>
       </nav>
     </>
