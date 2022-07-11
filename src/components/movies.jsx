@@ -1,5 +1,7 @@
 import React, { Component } from "react";
 import { getMovies } from "../services/fakeMovieService";
+import { getGenres } from "../services/fakeGenreService";
+
 import LoveHeart from "../common/LoveHeart";
 import Pagination from "../common/Pagination";
 import { paginate } from "../utils/paginate";
@@ -7,13 +9,21 @@ import ListGroup from "../common/ListGroup";
 
 class Movies extends Component {
   state = {
-    movies: getMovies(),
+    genres: [],
+    movies: [],
     pageSize: 4,
     currPage: 1,
   };
+  // Use component did mount so that the data have time to query from the backend
+  componentDidMount() {
+    this.setState({ movies: getMovies(), genres: getGenres() });
+  }
   handleDelete = (movie) => {
     const newMovies = this.state.movies.filter((m) => m._id !== movie._id);
     this.setState({ movies: newMovies });
+  };
+  handleGenreSelect = (genre) => {
+    console.log(genre);
   };
   handleLike = (movie) => {
     const newMovies = [...this.state.movies];
@@ -28,14 +38,14 @@ class Movies extends Component {
   render() {
     const { length: moviesCount } = this.state.movies;
     // destructuring the elements so the code is cleaner
-    const { movies, pageSize, currPage } = this.state;
+    const { movies, genres, pageSize, currPage } = this.state;
     if (moviesCount === 0) return <p>No movies in the database x</p>;
     const paginatedMovies = paginate(movies, currPage, pageSize);
 
     return (
       <div className="row">
         <div className="col-2">
-          <ListGroup />
+          <ListGroup items={genres} onItemSelect={this.handleGenreSelect} />
         </div>
         <div className="col">
           <p>Showing {moviesCount} movies in the database.</p>
