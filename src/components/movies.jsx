@@ -32,7 +32,7 @@ class Movies extends Component {
     const paginatedMovies = paginate(movies, currPage, pageSize);
 
     return (
-      <>
+      <div>
         <p>Showing {moviesCount} movies in the database.</p>
         <table className="table">
           <thead>
@@ -74,7 +74,7 @@ class Movies extends Component {
           onPageClick={this.handlePageChange}
           currPage={currPage}
         />
-      </>
+      </div>
     );
   }
 }
