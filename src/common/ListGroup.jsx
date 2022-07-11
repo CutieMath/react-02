@@ -1,15 +1,16 @@
 import React from "react";
 
-const ListGroup = ({ items, onItemSelect }) => {
+const ListGroup = (props) => {
+  const { items, textProperty, valueProperty } = props;
   return (
     <div className="list-group">
-      {items.map((genre) => (
+      {items.map((item) => (
         <a
-          key={genre._id}
+          key={item[valueProperty]}
           href="#"
           className="list-group-item list-group-item-action"
         >
-          {genre.name}
+          {item[textProperty]}
         </a>
       ))}
     </div>
