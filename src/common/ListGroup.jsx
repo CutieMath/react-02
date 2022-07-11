@@ -1,7 +1,7 @@
 import React, { Component } from "react";
 import { getGenres } from "../services/fakeGenreService";
 
-class Genres extends Component {
+class ListGroup extends Component {
   state = { genres: getGenres() };
   render() {
     const genres = this.state.genres;
@@ -17,4 +17,4 @@ class Genres extends Component {
   }
 }
 
-export default Genres;
+export default ListGroup;
