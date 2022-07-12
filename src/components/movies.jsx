@@ -16,7 +16,9 @@ class Movies extends Component {
   };
   // Use component did mount so that the data have time to query from the backend
   componentDidMount() {
-    this.setState({ movies: getMovies(), genres: getGenres() });
+    // make a new array so that all genres can be used
+    const genres = [{ name: "All Genres" }, ...getGenres()];
+    this.setState({ movies: getMovies(), genres });
   }
   handleDelete = (movie) => {
     const newMovies = this.state.movies.filter((m) => m._id !== movie._id);
