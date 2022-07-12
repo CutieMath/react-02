@@ -44,9 +44,10 @@ class Movies extends Component {
     if (moviesCount === 0) return <p>No movies in the database x</p>;
 
     // filter the move
-    const filteredMovies = selectedGenre
-      ? movies.filter((m) => m.genre._id === selectedGenre._id)
-      : movies;
+    const filteredMovies =
+      selectedGenre && selectedGenre._id // only filter the genres if it has ID property
+        ? movies.filter((m) => m.genre._id === selectedGenre._id)
+        : movies;
     // paginate the movie
     const paginatedMovies = paginate(filteredMovies, currPage, pageSize);
 
