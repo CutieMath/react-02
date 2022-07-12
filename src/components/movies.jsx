@@ -24,7 +24,6 @@ class Movies extends Component {
   };
   handleGenreSelect = (genre) => {
     this.setState({ selectedGenre: genre });
-    console.log(genre);
   };
   handleLike = (movie) => {
     const newMovies = [...this.state.movies];
@@ -39,9 +38,15 @@ class Movies extends Component {
   render() {
     const { length: moviesCount } = this.state.movies;
     // destructuring the elements so the code is cleaner
-    const { movies, genres, pageSize, currPage } = this.state;
+    const { movies, genres, pageSize, currPage, selectedGenre } = this.state;
     if (moviesCount === 0) return <p>No movies in the database x</p>;
-    const paginatedMovies = paginate(movies, currPage, pageSize);
+
+    // filter the move
+    const filteredMovies = selectedGenre
+      ? movies.filter((m) => m.genre._id === selectedGenre._id)
+      : movies;
+    // paginate the movie
+    const paginatedMovies = paginate(filteredMovies, currPage, pageSize);
 
     return (
       <div className="row">
@@ -53,7 +58,7 @@ class Movies extends Component {
           />
         </div>
         <div className="col">
-          <p>Showing {moviesCount} movies in the database.</p>
+          <p>Showing {filteredMovies.length} movies in the database.</p>
           <table className="table">
             <thead>
               <tr>
@@ -89,7 +94,7 @@ class Movies extends Component {
             </tbody>
           </table>
           <Pagination
-            itemsCount={moviesCount}
+            itemsCount={filteredMovies.length}
             pageSize={pageSize}
             onPageClick={this.handlePageChange}
             currPage={currPage}
