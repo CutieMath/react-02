@@ -43,8 +43,12 @@ class Movies extends Component {
   handleSort = (path) => {
     const sortColumn = { ...this.state.sortColumn };
     if (sortColumn.path === path) {
+      // if same path (the path was clicked twice)
+      // Then toggle desc and asc
       sortColumn.order = sortColumn.order === "asc" ? "desc" : "asc";
     } else {
+      // if different path
+      // Sort the path in asc order
       sortColumn.path = path;
       sortColumn.order = "asc";
     }
