@@ -6,13 +6,25 @@ const MoviesTable = (props) => {
     <table className="table">
       <thead>
         <tr>
-          <th scope="col" onClick={() => onSort("title")}>
+          <th
+            style={{ cursor: "pointer" }}
+            scope="col"
+            onClick={() => onSort("title")}
+          >
             Title
           </th>
-          <th scope="col" onClick={() => onSort("genre.name")}>
+          <th
+            style={{ cursor: "pointer" }}
+            scope="col"
+            onClick={() => onSort("genre.name")}
+          >
             Genre
           </th>
-          <th scope="col" onClick={() => onSort("dailyRentalRate")}>
+          <th
+            style={{ cursor: "pointer" }}
+            scope="col"
+            onClick={() => onSort("dailyRentalRate")}
+          >
             Ratings
           </th>
           <th scope="col">Likes</th>

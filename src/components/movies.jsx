@@ -7,12 +7,15 @@ import { paginate } from "../utils/paginate";
 import ListGroup from "../common/ListGroup";
 import MoviesTable from "./moviesTable";
 
+import _ from "lodash";
+
 class Movies extends Component {
   state = {
     genres: [],
     movies: [],
     pageSize: 4,
     currPage: 1,
+    sortColumn: { path: "title", order: "asc" }, // initial state for sorting
   };
   // Use component did mount so that the data have time to query from the backend
   componentDidMount() {
@@ -38,13 +41,14 @@ class Movies extends Component {
     this.setState({ currPage: pageClicked });
   };
   handleSort = (path) => {
-    console.log(path);
+    this.setState({ sortColumn: { path, order: "asc" } });
   };
 
   render() {
     const { length: moviesCount } = this.state.movies;
     // destructuring the elements so the code is cleaner
-    const { movies, genres, pageSize, currPage, selectedGenre } = this.state;
+    const { movies, genres, pageSize, currPage, selectedGenre, sortColumn } =
+      this.state;
     if (moviesCount === 0) return <p>No movies in the database x</p>;
 
     // filter the move
@@ -52,8 +56,16 @@ class Movies extends Component {
       selectedGenre && selectedGenre._id // only filter the genres if it has ID property
         ? movies.filter((m) => m.genre._id === selectedGenre._id)
         : movies;
+
+    // sort the movie
+    const sortedMovies = _.orderBy(
+      filteredMovies,
+      [sortColumn.path],
+      [sortColumn.order]
+    );
+
     // paginate the movie
-    const paginatedMovies = paginate(filteredMovies, currPage, pageSize);
+    const paginatedMovies = paginate(sortedMovies, currPage, pageSize);
 
     // Keep the level of abstraction consistant
     return (

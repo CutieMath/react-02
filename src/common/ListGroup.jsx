@@ -16,7 +16,7 @@ const ListGroup = (props) => {
           }
           onClick={() => onItemSelect(item)}
         >
-          {item[textProperty]},
+          {item[textProperty]}
         </a>
       ))}
     </div>
