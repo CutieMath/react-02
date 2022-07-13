@@ -25,7 +25,8 @@ class Movies extends Component {
     this.setState({ movies: newMovies });
   };
   handleGenreSelect = (genre) => {
-    this.setState({ selectedGenre: genre });
+    // set currPage to one when a different genre is selected
+    this.setState({ selectedGenre: genre, currPage: 1 });
   };
   handleLike = (movie) => {
     const newMovies = [...this.state.movies];
