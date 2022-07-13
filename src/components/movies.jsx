@@ -2,7 +2,6 @@ import React, { Component } from "react";
 import { getMovies } from "../services/fakeMovieService";
 import { getGenres } from "../services/fakeGenreService";
 
-import LoveHeart from "../common/LoveHeart";
 import Pagination from "../common/Pagination";
 import { paginate } from "../utils/paginate";
 import ListGroup from "../common/ListGroup";
@@ -38,6 +37,9 @@ class Movies extends Component {
   handlePageChange = (pageClicked) => {
     this.setState({ currPage: pageClicked });
   };
+  handleSort = (path) => {
+    console.log(path);
+  };
 
   render() {
     const { length: moviesCount } = this.state.movies;
@@ -53,7 +55,7 @@ class Movies extends Component {
     // paginate the movie
     const paginatedMovies = paginate(filteredMovies, currPage, pageSize);
 
-    // Keep the level of components consistant
+    // Keep the level of abstraction consistant
     return (
       <div className="row">
         <div className="col-3">
@@ -69,6 +71,7 @@ class Movies extends Component {
             paginatedMovies={paginatedMovies}
             onDelete={this.handleDelete}
             onLike={this.handleLike}
+            onSort={this.handleSort}
           />
           <Pagination
             itemsCount={filteredMovies.length}

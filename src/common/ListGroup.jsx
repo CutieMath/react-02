@@ -5,9 +5,9 @@ const ListGroup = (props) => {
     props;
   return (
     <div className="list-group">
-      {items.map((item) => (
+      {items.map((item, index) => (
         <a
-          key={item[valueProperty]}
+          key={index}
           href="#"
           className={
             item === selectedItem
@@ -16,7 +16,7 @@ const ListGroup = (props) => {
           }
           onClick={() => onItemSelect(item)}
         >
-          {item[textProperty]}
+          {item[textProperty]},
         </a>
       ))}
     </div>

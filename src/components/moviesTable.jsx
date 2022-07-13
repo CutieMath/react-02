@@ -1,14 +1,20 @@
 import React from "react";
 import LoveHeart from "../common/LoveHeart";
 const MoviesTable = (props) => {
-  const { paginatedMovies, onDelete, onLike } = props;
+  const { paginatedMovies, onDelete, onLike, onSort } = props;
   return (
     <table className="table">
       <thead>
         <tr>
-          <th scope="col">Title</th>
-          <th scope="col">Genre</th>
-          <th scope="col">Ratings</th>
+          <th scope="col" onClick={() => onSort("title")}>
+            Title
+          </th>
+          <th scope="col" onClick={() => onSort("genre.name")}>
+            Genre
+          </th>
+          <th scope="col" onClick={() => onSort("dailyRentalRate")}>
+            Ratings
+          </th>
           <th scope="col">Likes</th>
           <th scope="col">Edits</th>
         </tr>
