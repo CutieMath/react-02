@@ -30,8 +30,7 @@ class MoviesTable extends Component {
     },
   ];
   render() {
-    const { paginatedMovies, onDelete, onLike, onSort, sortColumn } =
-      this.props;
+    const { paginatedMovies, onSort, sortColumn } = this.props;
     return (
       <table className="table">
         <TableHeader

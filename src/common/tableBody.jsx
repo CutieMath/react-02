@@ -13,10 +13,10 @@ class TableBody extends Component {
     const { data, columns } = this.props;
     return (
       <tbody>
-        {data.map((item) => (
-          <tr>
-            {columns.map((column) => (
-              <td>{this.renderCell(item, column)}</td>
+        {data.map((item, index) => (
+          <tr key={index}>
+            {columns.map((column, index) => (
+              <td key={index}>{this.renderCell(item, column)}</td>
             ))}
           </tr>
         ))}
