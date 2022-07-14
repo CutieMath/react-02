@@ -2,8 +2,24 @@ import React, { Component } from "react";
 import LoveHeart from "../common/LoveHeart";
 
 class MoviesTable extends Component {
+  // !IMPORTANT!
+  // Change the sortColumn state in this component so it's reusable
+  raiseSort = (path) => {
+    const sortColumn = { ...this.props.sortColumn };
+    if (sortColumn.path === path) {
+      // if same path (the path was clicked twice)
+      // Then toggle desc and asc
+      sortColumn.order = sortColumn.order === "asc" ? "desc" : "asc";
+    } else {
+      // if different path
+      // Sort the path in asc order
+      sortColumn.path = path;
+      sortColumn.order = "asc";
+    }
+    this.props.onSort(sortColumn);
+  };
   render() {
-    const { paginatedMovies, onDelete, onLike, onSort } = this.props;
+    const { paginatedMovies, onDelete, onLike } = this.props;
     return (
       <table className="table">
         <thead>
@@ -11,21 +27,21 @@ class MoviesTable extends Component {
             <th
               style={{ cursor: "pointer" }}
               scope="col"
-              onClick={() => onSort("title")}
+              onClick={() => this.raiseSort("title")}
             >
               Title
             </th>
             <th
               style={{ cursor: "pointer" }}
               scope="col"
-              onClick={() => onSort("genre.name")}
+              onClick={() => this.raiseSort("genre.name")}
             >
               Genre
             </th>
             <th
               style={{ cursor: "pointer" }}
               scope="col"
-              onClick={() => onSort("dailyRentalRate")}
+              onClick={() => this.raiseSort("dailyRentalRate")}
             >
               Ratings
             </th>

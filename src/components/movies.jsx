@@ -40,18 +40,7 @@ class Movies extends Component {
   handlePageChange = (pageClicked) => {
     this.setState({ currPage: pageClicked });
   };
-  handleSort = (path) => {
-    const sortColumn = { ...this.state.sortColumn };
-    if (sortColumn.path === path) {
-      // if same path (the path was clicked twice)
-      // Then toggle desc and asc
-      sortColumn.order = sortColumn.order === "asc" ? "desc" : "asc";
-    } else {
-      // if different path
-      // Sort the path in asc order
-      sortColumn.path = path;
-      sortColumn.order = "asc";
-    }
+  handleSort = (sortColumn) => {
     this.setState({ sortColumn });
   };
 
@@ -92,6 +81,7 @@ class Movies extends Component {
           <p>Showing {filteredMovies.length} movies in the database.</p>
           <MoviesTable
             paginatedMovies={paginatedMovies}
+            sortColumn={sortColumn}
             onDelete={this.handleDelete}
             onLike={this.handleLike}
             onSort={this.handleSort}
