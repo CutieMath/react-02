@@ -1,54 +1,20 @@
 import React, { Component } from "react";
 import LoveHeart from "../common/LoveHeart";
+import TableHeader from "../common/tableHeader";
 
 class MoviesTable extends Component {
-  // !IMPORTANT!
-  // Change the sortColumn state in this component so it's reusable
-  raiseSort = (path) => {
-    const sortColumn = { ...this.props.sortColumn };
-    if (sortColumn.path === path) {
-      // if same path (the path was clicked twice)
-      // Then toggle desc and asc
-      sortColumn.order = sortColumn.order === "asc" ? "desc" : "asc";
-    } else {
-      // if different path
-      // Sort the path in asc order
-      sortColumn.path = path;
-      sortColumn.order = "asc";
-    }
-    this.props.onSort(sortColumn);
-  };
+  columns = [
+    { path: "title", label: "Title" },
+    { path: "genre.name", label: "Genre" },
+    { path: "dailyRentalRate", label: "Ratings" },
+    { label: "Likes" },
+    { label: "Edits" },
+  ];
   render() {
     const { paginatedMovies, onDelete, onLike } = this.props;
     return (
       <table className="table">
-        <thead>
-          <tr>
-            <th
-              style={{ cursor: "pointer" }}
-              scope="col"
-              onClick={() => this.raiseSort("title")}
-            >
-              Title
-            </th>
-            <th
-              style={{ cursor: "pointer" }}
-              scope="col"
-              onClick={() => this.raiseSort("genre.name")}
-            >
-              Genre
-            </th>
-            <th
-              style={{ cursor: "pointer" }}
-              scope="col"
-              onClick={() => this.raiseSort("dailyRentalRate")}
-            >
-              Ratings
-            </th>
-            <th scope="col">Likes</th>
-            <th scope="col">Edits</th>
-          </tr>
-        </thead>
+        <TableHeader columns={this.columns} />
         <tbody>
           {paginatedMovies.map((movie) => (
             <tr key={movie._id}>
