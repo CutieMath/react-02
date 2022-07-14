@@ -11,10 +11,15 @@ class MoviesTable extends Component {
     { label: "Edits" },
   ];
   render() {
-    const { paginatedMovies, onDelete, onLike } = this.props;
+    const { paginatedMovies, onDelete, onLike, onSort, sortColumn } =
+      this.props;
     return (
       <table className="table">
-        <TableHeader columns={this.columns} />
+        <TableHeader
+          columns={this.columns}
+          sortColumn={sortColumn}
+          onSort={onSort}
+        />
         <tbody>
           {paginatedMovies.map((movie) => (
             <tr key={movie._id}>
