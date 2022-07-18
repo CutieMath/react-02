@@ -1,4 +1,5 @@
 import React, { Component } from "react";
+import { FaSortUp, FaSortDown } from "react-icons/fa";
 
 // colums: array
 // sortColum: obj
@@ -22,6 +23,17 @@ class TableHeader extends Component {
     }
     this.props.onSort(sortColumn);
   };
+
+  renderSortIcon = (column) => {
+    const { sortColumn } = this.props;
+    if (column.path !== this.props.sortColumn.path) {
+      return null;
+    }
+    if (sortColumn.order === "asc") {
+      return <FaSortUp />;
+    }
+    return <FaSortDown />;
+  };
   render() {
     return (
       <thead>
@@ -32,7 +44,7 @@ class TableHeader extends Component {
               style={{ cursor: "pointer" }}
               onClick={() => this.raiseSort(column.path)}
             >
-              {column.label}
+              {column.label} {this.renderSortIcon(column)}
             </th>
           ))}
         </tr>
