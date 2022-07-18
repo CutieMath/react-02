@@ -1,7 +1,6 @@
 import React, { Component } from "react";
 import LoveHeart from "../common/LoveHeart";
-import TableHeader from "../common/tableHeader";
-import TableBody from "../common/tableBody";
+import Table from "../common/table";
 
 class MoviesTable extends Component {
   columns = [
@@ -32,14 +31,12 @@ class MoviesTable extends Component {
   render() {
     const { paginatedMovies, onSort, sortColumn } = this.props;
     return (
-      <table className="table">
-        <TableHeader
-          columns={this.columns}
-          sortColumn={sortColumn}
-          onSort={onSort}
-        />
-        <TableBody columns={this.columns} data={paginatedMovies} />
-      </table>
+      <Table
+        columns={this.columns}
+        sortColumn={sortColumn}
+        onSort={onSort}
+        data={paginatedMovies}
+      />
     );
   }
 }
