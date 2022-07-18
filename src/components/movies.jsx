@@ -7,7 +7,7 @@ import { paginate } from "../utils/paginate";
 import ListGroup from "../common/ListGroup";
 import MoviesTable from "./moviesTable";
 
-import _ from "lodash";
+import _, { filter } from "lodash";
 
 class Movies extends Component {
   state = {
@@ -43,30 +43,32 @@ class Movies extends Component {
   handleSort = (sortColumn) => {
     this.setState({ sortColumn });
   };
-
-  render() {
-    const { length: moviesCount } = this.state.movies;
-    // destructuring the elements so the code is cleaner
-    const { movies, genres, pageSize, currPage, selectedGenre, sortColumn } =
+  getArrangedPageData = () => {
+    const { movies, pageSize, currPage, selectedGenre, sortColumn } =
       this.state;
-    if (moviesCount === 0) return <p>No movies in the database x</p>;
-
     // filter the move
     const filteredMovies =
       selectedGenre && selectedGenre._id // only filter the genres if it has ID property
         ? movies.filter((m) => m.genre._id === selectedGenre._id)
         : movies;
-
     // sort the movie
     const sortedMovies = _.orderBy(
       filteredMovies,
       [sortColumn.path],
       [sortColumn.order]
     );
-
     // paginate the movie
     const paginatedMovies = paginate(sortedMovies, currPage, pageSize);
+    // function return
+    return { totalCount: filteredMovies.length, paginatedMovies };
+  };
 
+  render() {
+    const { length: moviesCount } = this.state.movies;
+    // destructuring the elements so the code is cleaner
+    const { genres, pageSize, currPage, sortColumn } = this.state;
+    if (moviesCount === 0) return <p>No movies in the database x</p>;
+    const { totalCount, paginatedMovies } = this.getArrangedPageData();
     // Keep the level of abstraction consistant
     return (
       <div className="row">
@@ -78,7 +80,7 @@ class Movies extends Component {
           />
         </div>
         <div className="col">
-          <p>Showing {filteredMovies.length} movies in the database.</p>
+          <p>Showing {totalCount} movies in the database.</p>
           <MoviesTable
             paginatedMovies={paginatedMovies}
             sortColumn={sortColumn}
@@ -87,7 +89,7 @@ class Movies extends Component {
             onSort={this.handleSort}
           />
           <Pagination
-            itemsCount={filteredMovies.length}
+            itemsCount={totalCount}
             pageSize={pageSize}
             onPageClick={this.handlePageChange}
             currPage={currPage}
