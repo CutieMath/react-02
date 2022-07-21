@@ -2,6 +2,9 @@ import React, { Component } from "react";
 import "./App.css";
 import Movies from "./components/movies";
 import NavBar from "./components/navBar";
+import Customers from "./components/customers";
+import Rentals from "./components/rentals";
+import { Route, Routes } from "react-router-dom";
 
 class App extends Component {
   render() {
@@ -9,7 +12,11 @@ class App extends Component {
       <>
         <NavBar />
         <main className="container">
-          <Movies />
+          <Routes>
+            <Route path="/movies" element={<Movies />} />
+            <Route path="/rentals" element={<Rentals />} />
+            <Route path="/customers" element={<Customers />} />
+          </Routes>
         </main>
       </>
     );
