@@ -14,7 +14,7 @@ class LoginForm extends Component {
   // }
   handleChange = (e) => {
     const account = { ...this.state.account };
-    account.username = e.currentTarget.value;
+    account[e.currentTarget.name] = e.currentTarget.value;
     this.setState({ account });
   };
 
@@ -41,7 +41,8 @@ class LoginForm extends Component {
               id="username"
               type="text"
               className="mt-2 form-control"
-              ref={this.username}
+              // ref={this.username}
+              name="username"
             />
           </div>
           <div className="form-group">
@@ -49,10 +50,13 @@ class LoginForm extends Component {
               Password
             </label>
             <input
+              value={this.state.account.password}
+              name="password"
               placeholder="Password"
               id="password"
               type="text"
               className="mt-2 form-control"
+              onChange={this.handleChange}
             />
           </div>
           <button className="mt-4 btn btn-primary">Login</button>
