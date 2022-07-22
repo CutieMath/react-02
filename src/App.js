@@ -5,6 +5,7 @@ import NavBar from "./components/navBar";
 import Customers from "./components/customers";
 import Rentals from "./components/rentals";
 import NotFound from "./components/notFound";
+import MovieDetails from "./components/movieDetails";
 import { Navigate, Route, Routes } from "react-router-dom";
 
 class App extends Component {
@@ -15,6 +16,7 @@ class App extends Component {
         <main className="container">
           <Routes>
             <Route path="/movies" element={<Movies />} />
+            <Route path="/movies/:id" element={<MovieDetails />} />
             <Route path="/rentals" element={<Rentals />} />
             <Route path="/customers" element={<Customers />} />
             <Route path="/not-found" element={<NotFound />} />
