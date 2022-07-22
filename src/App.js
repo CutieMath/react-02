@@ -14,11 +14,11 @@ class App extends Component {
         <NavBar />
         <main className="container">
           <Routes>
-            <Route path="/" element={<Movies />} />
             <Route path="/movies" element={<Movies />} />
             <Route path="/rentals" element={<Rentals />} />
             <Route path="/customers" element={<Customers />} />
             <Route path="/not-found" element={<NotFound />} />
+            <Route path="/" element={<Navigate to="/movies" />} />
             <Route path="*" element={<Navigate to="/not-found" />} />
           </Routes>
         </main>
