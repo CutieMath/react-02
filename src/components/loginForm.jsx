@@ -1,6 +1,8 @@
 import React, { Component } from "react";
+import Input from "../common/input";
 
 class LoginForm extends Component {
+  // Note: null and undefined cannot be used as the value of the controlled state
   state = {
     account: { username: "", password: "" },
   };
@@ -29,37 +31,20 @@ class LoginForm extends Component {
       <div>
         <h1>Login</h1>
         <form onSubmit={this.handleSubmit}>
-          <div className="form-group">
-            <label htmlFor="username" className="mt-4">
-              Username
-            </label>
-            <input
-              // controlled state
-              value={account.username}
-              onChange={this.handleChange}
-              autoFocus
-              placeholder="User name"
-              id="username"
-              type="text"
-              className="mt-2 form-control"
-              name="username"
-              // ref={this.username}
-            />
-          </div>
-          <div className="form-group">
-            <label htmlFor="password" className="mt-4">
-              Password
-            </label>
-            <input
-              value={account.password}
-              name="password"
-              placeholder="Password"
-              id="password"
-              type="text"
-              className="mt-2 form-control"
-              onChange={this.handleChange}
-            />
-          </div>
+          <Input
+            fieldName="username"
+            label="User Name"
+            value={account.name}
+            placeholder="User Name"
+            onChange={this.handleChange}
+          />
+          <Input
+            fieldName="password"
+            label="Password"
+            value={account.password}
+            placeholder="Password"
+            onChange={this.handleChange}
+          />
           <button className="mt-4 btn btn-primary">Login</button>
         </form>
       </div>
