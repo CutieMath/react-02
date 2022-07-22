@@ -1,12 +1,12 @@
 import React, { Component } from "react";
-import "./App.css";
+import { Navigate, Route, Routes } from "react-router-dom";
 import Movies from "./components/movies";
 import NavBar from "./components/navBar";
 import Customers from "./components/customers";
 import Rentals from "./components/rentals";
 import NotFound from "./components/notFound";
 import MovieDetails from "./components/movieDetails";
-import { Navigate, Route, Routes } from "react-router-dom";
+import "./App.css";
 
 class App extends Component {
   render() {
