@@ -12,9 +12,9 @@ class LoginForm extends Component {
   // componentDidMount() {
   //   this.username.current.focus();
   // }
-  handleChange = (e) => {
+  handleChange = ({ currentTarget: input }) => {
     const account = { ...this.state.account };
-    account[e.currentTarget.name] = e.currentTarget.value;
+    account[input.name] = input.value;
     this.setState({ account });
   };
 
@@ -42,8 +42,8 @@ class LoginForm extends Component {
               id="username"
               type="text"
               className="mt-2 form-control"
-              // ref={this.username}
               name="username"
+              // ref={this.username}
             />
           </div>
           <div className="form-group">
