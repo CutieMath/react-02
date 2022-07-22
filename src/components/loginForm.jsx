@@ -34,7 +34,7 @@ class LoginForm extends Component {
           <Input
             fieldName="username"
             label="User Name"
-            value={account.name}
+            value={account.username}
             placeholder="User Name"
             onChange={this.handleChange}
           />
