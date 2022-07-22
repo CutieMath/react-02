@@ -1,9 +1,20 @@
 import React from "react";
-import { useParams } from "react-router-dom";
+import { useParams, useNavigate } from "react-router-dom";
 
 const MovieDetails = () => {
   const { id } = useParams();
-  return <div>Individual movie details: {id}</div>;
+  const navigate = useNavigate();
+  const handleSave = () => {
+    navigate("/", { replace: true });
+  };
+  return (
+    <div>
+      <h4>Individual movie details: {id}</h4>
+      <button className="btn btn-primary mt-3" onClick={handleSave}>
+        save
+      </button>
+    </div>
+  );
 };
 
 export default MovieDetails;
