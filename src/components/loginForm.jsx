@@ -5,10 +5,20 @@ class LoginForm extends Component {
   // Note: null and undefined cannot be used as the value of the controlled state
   state = {
     account: { username: "", password: "" },
+    errors: {},
   };
 
   // Note: minimise the use of Ref
   username = React.createRef();
+  validate = () => {
+    const errors = {};
+    const { account } = this.state;
+    if (account.username.trim() === "")
+      errors.username = "Username is required.";
+    if (account.password.trim() === "")
+      errors.password = "Password is required.";
+    return Object.keys(errors).length === 0 ? null : errors;
+  };
 
   // This can be replaced by autoFocus attribute
   // componentDidMount() {
@@ -22,8 +32,14 @@ class LoginForm extends Component {
 
   handleSubmit = (e) => {
     e.preventDefault();
+    // Verify the input fields
+    const errors = this.validate();
+    console.log(errors);
+    this.setState({ errors });
+    if (errors) return;
     // Get the value from input fields
-    const username = this.username.current.value;
+    console.log("submitted");
+    // const username = this.username.current.value;
   };
   render() {
     const { account } = this.state;
