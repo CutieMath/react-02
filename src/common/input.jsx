@@ -1,6 +1,6 @@
 import React from "react";
 
-const Input = ({ fieldName, label, value, onChange, placeholder }) => {
+const Input = ({ error, fieldName, label, value, onChange, placeholder }) => {
   return (
     <>
       <div className="form-group">
@@ -17,6 +17,7 @@ const Input = ({ fieldName, label, value, onChange, placeholder }) => {
           className="mt-2 form-control"
         />
       </div>
+      {error && <div className="alert alert-danger">{error}</div>}
     </>
   );
 };
