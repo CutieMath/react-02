@@ -18,6 +18,7 @@ class LoginForm extends Component {
   // Note: minimise the use of Ref
   username = React.createRef();
   validate = () => {
+    // Validation using Joi
     const { error } = Joi.validate(this.state.account, this.schema);
     if (!error) return null;
     const errors = {};
@@ -38,17 +39,23 @@ class LoginForm extends Component {
   };
 
   validateProperty = ({ name, value }) => {
+    // Validation using Joi
+    const obj = { [name]: value }; // computed properties in ES6
+    const schema = { [name]: this.schema[name] };
+    const { error } = Joi.validate(obj, schema);
+    return error ? error.details[0].message : null;
+
     // basic validation
-    if (name === "username") {
-      if (value.trim() === "") {
-        return "Username is required";
-      }
-    }
-    if (name === "password") {
-      if (value.trim() === "") {
-        return "Password is required";
-      }
-    }
+    // if (name === "username") {
+    //   if (value.trim() === "") {
+    //     return "Username is required";
+    //   }
+    // }
+    // if (name === "password") {
+    //   if (value.trim() === "") {
+    //     return "Password is required";
+    //   }
+    // }
   };
 
   // This can be replaced by autoFocus attribute
