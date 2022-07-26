@@ -1,5 +1,7 @@
 import React, { Component } from "react";
 import Input from "../common/input";
+import Joi from "joi-browser";
+import { result } from "lodash";
 
 class LoginForm extends Component {
   // Note: null and undefined cannot be used as the value of the controlled state
@@ -8,16 +10,32 @@ class LoginForm extends Component {
     errors: {},
   };
 
+  schema = {
+    username: Joi.string().required().label("Username"),
+    password: Joi.string().required().label("Password"),
+  };
+
   // Note: minimise the use of Ref
   username = React.createRef();
   validate = () => {
+    const result = Joi.validate(this.state.account, this.schema);
+    if (!result.error) return null;
     const errors = {};
-    const { account } = this.state;
-    if (account.username.trim() === "")
-      errors.username = "Username is required.";
-    if (account.password.trim() === "")
-      errors.password = "Password is required.";
-    return Object.keys(errors).length === 0 ? null : errors;
+    for (let item of result.error.details) {
+      // map array into an object
+      errors[item.path[0]] = item.message;
+    }
+    console.log(errors);
+    return errors;
+
+    // Basic method for form validation
+    // const errors = {};
+    // const { account } = this.state;
+    // if (account.username.trim() === "")
+    //   errors.username = "Username is required.";
+    // if (account.password.trim() === "")
+    //   errors.password = "Password is required.";
+    // return Object.keys(errors).length === 0 ? null : errors;
   };
 
   validateProperty = ({ name, value }) => {
