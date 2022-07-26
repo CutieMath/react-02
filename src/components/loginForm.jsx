@@ -35,7 +35,7 @@ class LoginForm extends Component {
     // Verify the input fields
     const errors = this.validate();
     console.log(errors);
-    this.setState({ errors });
+    this.setState({ errors: errors || {} }); // set to empty object
     if (errors) return;
     // Get the value from input fields
     console.log("submitted");
