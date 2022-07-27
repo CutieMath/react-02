@@ -1,7 +1,6 @@
 import React, { Component } from "react";
 import Input from "../common/input";
 import Joi from "joi-browser";
-import { result } from "lodash";
 
 class LoginForm extends Component {
   // Note: null and undefined cannot be used as the value of the controlled state
@@ -39,7 +38,7 @@ class LoginForm extends Component {
   };
 
   validateProperty = ({ name, value }) => {
-    // Validation using Joi
+    // Validate one input using Joi
     const obj = { [name]: value }; // computed properties in ES6
     const schema = { [name]: this.schema[name] };
     const { error } = Joi.validate(obj, schema);
@@ -83,7 +82,6 @@ class LoginForm extends Component {
     e.preventDefault();
     // Verify the input fields
     const errors = this.validate();
-    console.log(errors);
     this.setState({ errors: errors || {} }); // set to empty object
     if (errors) return;
     // Get the value from input fields
@@ -112,7 +110,9 @@ class LoginForm extends Component {
             onChange={this.handleChange}
             error={errors.password}
           />
-          <button className="mt-4 btn btn-primary">Login</button>
+          <button disabled={this.validate()} className="mt-4 btn btn-primary">
+            Login
+          </button>
         </form>
       </div>
     );
