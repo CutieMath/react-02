@@ -1,95 +1,27 @@
 import React, { Component } from "react";
 import Input from "../common/input";
 import Joi from "joi-browser";
+import Form from "../common/form";
 
-class LoginForm extends Component {
+class LoginForm extends Form {
   // Note: null and undefined cannot be used as the value of the controlled state
   state = {
-    account: { username: "", password: "" },
+    data: { username: "", password: "" },
     errors: {},
   };
 
+  // Schema is dependent upon each form
   schema = {
     username: Joi.string().required().label("Username"),
     password: Joi.string().required().label("Password"),
   };
 
-  // Note: minimise the use of Ref
-  username = React.createRef();
-  validate = () => {
-    // Validation using Joi
-    const { error } = Joi.validate(this.state.account, this.schema);
-    if (!error) return null;
-    const errors = {};
-    for (let item of error.details) {
-      // map array into an object
-      errors[item.path[0]] = item.message;
-    }
-    return errors;
-
-    // Basic method for form validation
-    // const errors = {};
-    // const { account } = this.state;
-    // if (account.username.trim() === "")
-    //   errors.username = "Username is required.";
-    // if (account.password.trim() === "")
-    //   errors.password = "Password is required.";
-    // return Object.keys(errors).length === 0 ? null : errors;
+  doSubmit = () => {
+    console.log("Submitted");
   };
 
-  validateProperty = ({ name, value }) => {
-    // Validate one input using Joi
-    const obj = { [name]: value }; // computed properties in ES6
-    const schema = { [name]: this.schema[name] };
-    const { error } = Joi.validate(obj, schema);
-    return error ? error.details[0].message : null;
-
-    // basic validation
-    // if (name === "username") {
-    //   if (value.trim() === "") {
-    //     return "Username is required";
-    //   }
-    // }
-    // if (name === "password") {
-    //   if (value.trim() === "") {
-    //     return "Password is required";
-    //   }
-    // }
-  };
-
-  // This can be replaced by autoFocus attribute
-  // componentDidMount() {
-  //   this.username.current.focus();
-  // }
-  handleChange = ({ currentTarget: input }) => {
-    // Validation on change
-    const errors = { ...this.state.errors };
-    const errorMessage = this.validateProperty(input);
-    if (errorMessage) {
-      errors[input.name] = errorMessage;
-    } else {
-      delete errors[input.name];
-    }
-    this.setState({ errors });
-
-    // Change the state of the account for rendering
-    const account = { ...this.state.account };
-    account[input.name] = input.value;
-    this.setState({ account });
-  };
-
-  handleSubmit = (e) => {
-    e.preventDefault();
-    // Verify the input fields
-    const errors = this.validate();
-    this.setState({ errors: errors || {} }); // set to empty object
-    if (errors) return;
-    // Get the value from input fields
-    console.log("submitted");
-    // const username = this.username.current.value;
-  };
   render() {
-    const { account, errors } = this.state;
+    const { data, errors } = this.state;
     return (
       <div>
         <h1>Login</h1>
@@ -97,7 +29,7 @@ class LoginForm extends Component {
           <Input
             fieldName="username"
             label="User Name"
-            value={account.username}
+            value={data.username}
             placeholder="User Name"
             onChange={this.handleChange}
             error={errors.username}
@@ -105,7 +37,7 @@ class LoginForm extends Component {
           <Input
             fieldName="password"
             label="Password"
-            value={account.password}
+            value={data.password}
             placeholder="Password"
             onChange={this.handleChange}
             error={errors.password}
