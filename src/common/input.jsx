@@ -1,6 +1,14 @@
 import React from "react";
 
-const Input = ({ error, fieldName, label, value, onChange, placeholder }) => {
+const Input = ({
+  type,
+  error,
+  fieldName,
+  label,
+  value,
+  onChange,
+  placeholder,
+}) => {
   return (
     <>
       <div className="form-group">
@@ -8,12 +16,12 @@ const Input = ({ error, fieldName, label, value, onChange, placeholder }) => {
           {label}
         </label>
         <input
+          type={type}
           id={fieldName}
           name={fieldName}
           value={value}
           onChange={onChange}
           placeholder={placeholder}
-          type="text"
           className="mt-2 form-control"
         />
       </div>
