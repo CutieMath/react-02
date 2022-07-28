@@ -1,21 +1,35 @@
 import React from "react";
 
-const SingleSelect = ({ fieldName, errors, label, options }) => {
+const SingleSelect = ({
+  fieldName,
+  error,
+  label,
+  options,
+  value,
+  onChange,
+}) => {
   return (
-    <>
+    <div className="form-group">
       <label htmlFor={fieldName} className="mt-4">
         {label}
       </label>
-      <select class="form-select" aria-label="Default select example">
-        <option selected>{label}</option>
+      <select
+        name={fieldName}
+        id={fieldName}
+        value={value}
+        onChange={onChange}
+        class="form-select"
+        aria-label="Default select"
+      >
+        <option value="" />
         {options.map((option, index) => (
-          <option key={index} value={option.value}>
-            {option.value}
+          <option key={index} value={option._id}>
+            {option.name}
           </option>
         ))}
       </select>
-      {errors && <div className="alert alert-danger">{errors}</div>}
-    </>
+      {error && <div className="alert alert-danger">{error}</div>}
+    </div>
   );
 };
 

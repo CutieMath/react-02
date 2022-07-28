@@ -74,13 +74,15 @@ class Form extends Component {
   }
 
   renderSingleSelect(name, label, options) {
-    const { errors } = this.state;
+    const { data, errors } = this.state;
     return (
       <SingleSelect
         fieldName={name}
+        value={data[name]}
         label={label}
         options={options}
-        errors={errors}
+        onChange={this.handleChange}
+        error={errors[name]}
       />
     );
   }
