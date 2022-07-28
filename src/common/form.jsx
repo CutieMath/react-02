@@ -1,6 +1,7 @@
 import React, { Component } from "react";
 import Joi from "joi-browser";
 import Input from "./input";
+import SingleSelect from "./singleSelect";
 
 class Form extends Component {
   state = {
@@ -68,6 +69,18 @@ class Form extends Component {
         placeholder={label}
         onChange={this.handleChange}
         error={errors[name]}
+      />
+    );
+  }
+
+  renderSingleSelect(name, label, options) {
+    const { errors } = this.state;
+    return (
+      <SingleSelect
+        fieldName={name}
+        label={label}
+        options={options}
+        errors={errors}
       />
     );
   }
