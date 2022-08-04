@@ -60,7 +60,8 @@ class Movies extends Component {
       sortColumn,
       searchQuery,
     } = this.state;
-    // filter the move
+
+    // filter/search the move
     let filteredMovies = allMovies;
     if (searchQuery) {
       filteredMovies = allMovies.filter((m) =>
