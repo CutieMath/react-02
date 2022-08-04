@@ -6,6 +6,7 @@ import { Link } from "react-router-dom";
 import Pagination from "../common/Pagination";
 import { paginate } from "../utils/paginate";
 import ListGroup from "../common/ListGroup";
+import SearchBox from "../common/searchBox";
 import MoviesTable from "./moviesTable";
 
 import _, { filter } from "lodash";
@@ -16,6 +17,8 @@ class Movies extends Component {
     movies: [],
     pageSize: 4,
     currPage: 1,
+    searchQuery: "",
+    selectedGenre: null,
     sortColumn: { path: "title", order: "asc" }, // initial state for sorting
   };
   // Use component did mount so that the data have time to query from the backend
@@ -30,7 +33,7 @@ class Movies extends Component {
   };
   handleGenreSelect = (genre) => {
     // set currPage to one when a different genre is selected
-    this.setState({ selectedGenre: genre, currPage: 1 });
+    this.setState({ selectedGenre: genre, searchQuery: "", currPage: 1 });
   };
   handleLike = (movie) => {
     const newMovies = [...this.state.movies];
@@ -44,14 +47,31 @@ class Movies extends Component {
   handleSort = (sortColumn) => {
     this.setState({ sortColumn });
   };
+  handleSearch = (query) => {
+    this.setState({ searchQuery: query, selectedGenre: null, currPage: 1 });
+  };
+
   getArrangedPageData = () => {
-    const { movies, pageSize, currPage, selectedGenre, sortColumn } =
-      this.state;
+    const {
+      movies: allMovies,
+      pageSize,
+      currPage,
+      selectedGenre,
+      sortColumn,
+      searchQuery,
+    } = this.state;
     // filter the move
-    const filteredMovies =
-      selectedGenre && selectedGenre._id // only filter the genres if it has ID property
-        ? movies.filter((m) => m.genre._id === selectedGenre._id)
-        : movies;
+    let filteredMovies = allMovies;
+    if (searchQuery) {
+      filteredMovies = allMovies.filter((m) =>
+        m.title.toLowerCase().startsWith(searchQuery.toLowerCase())
+      );
+    } else if (selectedGenre && selectedGenre._id) {
+      filteredMovies = allMovies.filter(
+        (m) => m.genre._id === selectedGenre._id
+      );
+    }
+
     // sort the movie
     const sortedMovies = _.orderBy(
       filteredMovies,
@@ -67,7 +87,7 @@ class Movies extends Component {
   render() {
     const { length: moviesCount } = this.state.movies;
     // destructuring the elements so the code is cleaner
-    const { genres, pageSize, currPage, sortColumn } = this.state;
+    const { genres, pageSize, currPage, sortColumn, searchQuery } = this.state;
     if (moviesCount === 0) return <p>No movies in the database x</p>;
     const { totalCount, paginatedMovies } = this.getArrangedPageData();
     // Keep the level of abstraction consistant
@@ -85,6 +105,7 @@ class Movies extends Component {
             <button className="btn btn-primary mb-3">New Movie</button>
           </Link>
           <p>Showing {totalCount} movies in the database.</p>
+          <SearchBox value={searchQuery} onChange={this.handleSearch} />
           <MoviesTable
             paginatedMovies={paginatedMovies}
             sortColumn={sortColumn}
