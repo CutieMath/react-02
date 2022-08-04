@@ -18,7 +18,7 @@ const SingleSelect = ({
         id={fieldName}
         value={value}
         onChange={onChange}
-        class="form-select"
+        className="form-select"
         aria-label="Default select"
       >
         <option value="" />
